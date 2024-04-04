@@ -8,7 +8,7 @@ const Header = () => {
       <img className="mx-auto" src={logo} />
       <p className="text-xl my-2">Journalism Without Fear or Favor</p>
       <p>{moment().format("dddd, MMMM D, YYYY")}</p>
-      <div className="text-left flex items-center my-6">
+      <div className="text-left flex items-center lg:my-6 mt-4">
         <button className="btn bg-red-500 text-white inline btn-sm px-8">
           Latest
         </button>
