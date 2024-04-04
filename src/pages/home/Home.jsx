@@ -8,9 +8,8 @@ const Home = () => {
     <div>
       <Header></Header>
       <Navbar></Navbar>
-      <h2 className="font-poppins">This is home</h2>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <div className="bg-gray-300">
+        <div className="">
           <LeftSideNav></LeftSideNav>
         </div>
         <div className="lg:col-span-2 bg-green-300">
