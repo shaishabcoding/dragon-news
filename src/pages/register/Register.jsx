@@ -9,13 +9,11 @@ const Register = () => {
   const [image, setImage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    console.log(
-      form.get("email"),
-      form.get("password"),
-      form.get("image"),
-      form.get("name")
+    const { email, password } = Object.fromEntries(
+      new FormData(e.currentTarget).entries()
     );
+
+    console.log({ email, password }, new FormData(e.currentTarget).entries());
   };
   return (
     <div>
@@ -39,18 +37,20 @@ const Register = () => {
               className="grow"
               placeholder="Enter your name"
               name="name"
+              required
             />
           </label>
           <label className="input input-bordered flex items-center gap-2">
             <img src={image ? image : picture} className="w-[1em]" />
             <input
-              type="text"
+              type="url"
               className="grow"
               placeholder="Enter your image url"
               name="image"
               onChange={(e) => {
                 setImage(e.target.value);
               }}
+              required
             />
           </label>
           <label className="input input-bordered flex items-center gap-2">
@@ -64,10 +64,11 @@ const Register = () => {
               <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
             </svg>
             <input
-              type="text"
+              type="email"
               className="grow"
               placeholder="Enter your email"
               name="email"
+              required
             />
           </label>
           <div className="join">
@@ -89,6 +90,9 @@ const Register = () => {
                 className="grow"
                 name="password"
                 placeholder="Enter your password"
+                required
+                minLength="6"
+                maxLength="20"
               />
             </label>
             <button
