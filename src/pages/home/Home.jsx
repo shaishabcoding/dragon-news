@@ -2,12 +2,8 @@ import Header from "../../shared/header/Header";
 import Navbar from "../../shared/navbar/Navbar";
 import LeftSideNav from "../../shared/navbar/LeftSideNav";
 import RightSideNav from "../../shared/navbar/RightSideNav";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 
 const Home = () => {
-  const { name } = useContext(AuthContext);
-  console.log(name);
   return (
     <div>
       <Header></Header>

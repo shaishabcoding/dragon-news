@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../shared/navbar/Navbar";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { logIn } = useContext(AuthContext);
   const [isShowPass, setIsShowPass] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    console.log(form.get("email"), form.get("password"));
+    const formData = Object.fromEntries(
+      new FormData(e.currentTarget).entries()
+    );
+    logIn(formData, () => {
+      navigate("/");
+    });
   };
   return (
     <div>

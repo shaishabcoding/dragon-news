@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../shared/navbar/Navbar";
 import picture from "../../assets/icons/picture.svg";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { createUser } = useContext(AuthContext);
   const [isShowPass, setIsShowPass] = useState(false);
   const [image, setImage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = Object.fromEntries(
+    const formData = Object.fromEntries(
       new FormData(e.currentTarget).entries()
     );
-
-    console.log({ email, password }, new FormData(e.currentTarget).entries());
+    createUser(formData, () => {
+      navigate("/");
+    });
   };
   return (
     <div>
