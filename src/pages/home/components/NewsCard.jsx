@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const NewsCard = ({ news }) => {
-  const { author, title, image_url, details, rating, total_view } = news;
+  const { author, title, image_url, details, rating, total_view, _id } = news;
   return (
     <div className="grid gap-4">
       <div className="w-full">
@@ -15,7 +16,16 @@ const NewsCard = ({ news }) => {
         <div className="border-x border-gray-300 p-4 grid gap-4">
           <h2 className="font-semibold text-lg">{title}</h2>
           <img src={image_url} />
-          <p>{details}</p>
+          {details.length > 200 ? (
+            <p>
+              {details.slice(0, 200)}{" "}
+              <Link className="link text-primary" to={`/news/${_id}`}>
+                Read more...
+              </Link>
+            </p>
+          ) : (
+            <p>{details}</p>
+          )}
         </div>
         <div className="border rounded-b-lg border-gray-300 p-4 bg-gray-50 flex justify-between items-center">
           <p>Rating: {rating.number}</p>

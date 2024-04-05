@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../shared/navbar/Navbar";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+  const location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
   const { logIn } = useContext(AuthContext);
   const [isShowPass, setIsShowPass] = useState(false);
@@ -14,7 +16,7 @@ const Login = () => {
       new FormData(e.currentTarget).entries()
     );
     logIn(formData, () => {
-      navigate("/");
+      navigate(location?.state || "/");
     });
   };
   return (

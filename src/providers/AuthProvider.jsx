@@ -11,8 +11,10 @@ import PropTypes from "prop-types";
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   console.log(user);
   const createUser = ({ email, password, name, image }, callback = null) => {
+    isLoading(true);
     createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
       updateProfile(user, {
         displayName: name,
@@ -22,6 +24,7 @@ const AuthProvider = ({ children }) => {
     });
   };
   const logIn = ({ email, password }, callback = null) => {
+    setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         callback && callback(user);
@@ -30,10 +33,16 @@ const AuthProvider = ({ children }) => {
         alert("Invalid email or password");
       });
   };
-  const logOut = () => auth.signOut();
+  const logOut = () => {
+    setIsLoading(true);
+    auth.signOut();
+  };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, setUser);
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setIsLoading(false);
+    });
     return () => {
       unSubscribe();
     };
@@ -43,6 +52,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     logOut,
     logIn,
+    isLoading,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
