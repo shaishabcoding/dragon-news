@@ -39,7 +39,7 @@ const RightSideNav = () => {
       </div>
       <div>
         <h2 className="font-semibold text-2xl mb-2">Q-Zone</h2>
-        <div>
+        <div className="grid justify-center">
           <img
             src={qZone1}
             className="hover:drop-shadow-lg hover:saturate-150"
